@@ -1,0 +1,92 @@
+from tkinter import *
+import minesweepsetting
+from cells import Cell
+import utilities
+
+
+root = Tk()
+root.geometry(f'{minesweepsetting.width}x{minesweepsetting.height}')
+root.resizable(width=False,height=False)
+root.configure(bg='PaleTurquoise1')
+root.title("My Minesweeper Game")
+
+topframe=Frame(
+    root,
+    bg='LightSalmon2', 
+               width=minesweepsetting.width, height=utilities.heightperc(30))
+#where will the top frame start from?(given below)
+topframe.place(x=0,y=0)
+gametitle=Label(
+    topframe,
+    bg='LightSalmon2',
+    fg='black',
+    font=('Helvetica',70),
+    text='Minesweeper Game')
+gametext=Label(
+    topframe,
+    font=('Helvetica',20),
+    bg='LightSalmon2',
+    fg='plum1',
+    text='Helllo and welcome to the Minesweeper Game. Get ready to challenge your skills!\n The instructions are given in the right window pane.\n You can mark would-be mine cells using the click\nAlways keep an eye on the cell count, and all the very best!'
+)
+gametitle.place(
+    x=utilities.widthperc(25),y=10
+)
+gametext.place(
+    x=utilities.widthperc(20),y=100
+)
+leftframe=Frame(
+    root, bg='RosyBrown2', width=utilities.heightperc(35),
+height=utilities.widthperc(40))
+leftframe.place(x=0,y=210)
+
+
+centerframe=Frame(root, bg='PaleTurquoise1', height=utilities.heightperc(70), width=utilities.widthperc(83)
+)
+#centerframe.place(x=utilities.heightperc(65),y=utilities.widthperc(70),)
+centerframe.place(x=245,y=210)
+gameinstructions=Label(
+    bg='PaleTurquoise1',
+    fg='purple',
+    font=('',25),
+    text='Minesweeper is a game \nwhere mines are hidden\nin a grid of squares.\n\nSafe squares have numbers\ntelling you how many\nmines touch the square.\n\nYou can use the number\nclues to solve the game\nby opening all of the\nsafe squares.\n\n If you click on a mine\n you lose the game!'
+)
+gameinstructions.place(
+    x=utilities.widthperc(77),y=210
+)
+
+#making buttons
+"""button1=Button(
+    centerframe, bg='blue', text='1stButton'
+)
+button1.place(x=0,y=0)"""
+
+#making buttons usinng classes
+"""c1= Cell()
+c1.createbuttonobj(centerframe)
+c1.cellbuttonobj.place(
+    x=0,y=0
+)"""
+
+#dynamically making buttons using grid method in a for loop
+
+for x in range(minesweepsetting.Grid):
+    for y in range(minesweepsetting.Grid):
+        c=Cell(x,y)
+        c.createbuttonobj(centerframe)
+        c.cellbuttonobj.grid(
+            column=x, row=y
+        )
+        
+#list with 36 cell elements in it(We used the code below)
+#print(Cell.all)
+Cell.createcellcountlabel(leftframe)
+Cell.cellcountlabelobject.place(
+    x=0,y=0
+)
+Cell.randomisemines()
+
+
+
+#Run the window
+root.mainloop()
