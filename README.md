@@ -1,2 +1,2 @@
-# Minecraft-using-python
+# Minesweeper-using-python
 A python project to to learn randomisation.
